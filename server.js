@@ -40,8 +40,9 @@ app.post('/api', async function(req, res){
     const message = json.split(',').join('\n');
 
 
-    
-    //  await email.sendEmail(message);
+    console.log(alldata);
+
+    //  await email.sendEmail(name,email,message);
 
 })
 
@@ -51,6 +52,5 @@ app.post('/api', async function(req, res){
 
 app.listen(port,()=>{
     console.log(`port listing to ${port}`);
-    console.log(process.env.API);
 })
 
