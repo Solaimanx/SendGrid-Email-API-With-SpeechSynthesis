@@ -41,6 +41,7 @@ app.post('/api', async function(req, res){
 
 
     console.log(alldata);
+    res.send('Access Denied');
 
     //  await email.sendEmail(name,email,message);
 
