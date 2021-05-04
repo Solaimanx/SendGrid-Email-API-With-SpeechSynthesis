@@ -14,7 +14,7 @@ const sendEmail = async (message) => {
 const msg = {
     to:"solaiman321@gmail.com",
     from:"solaiman321@gmail.com",
-    subject:"this is test email from node",
+    subject:"English test email ",
     text: message,
 
 };
