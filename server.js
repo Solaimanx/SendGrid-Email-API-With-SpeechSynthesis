@@ -21,6 +21,11 @@ const json = (data)=>{
     return message = (JSON.stringify(data));
 }
 
+app.get('/',function(req,res){
+    res.send('Access Denied')
+});
+
+
 app.post('/api', async function(req, res){
 
     res.setHeader('Access-Control-Allow-Origin', '*');
