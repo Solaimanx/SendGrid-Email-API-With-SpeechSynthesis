@@ -17,9 +17,6 @@ app.use(bodyParser.json());
 
 const email = require('./email')
 
-const json = (data)=>{
-    return message = (JSON.stringify(data));
-}
 
 app.get('/',function(req,res){
     res.send('Access Denied')
@@ -34,16 +31,11 @@ app.post('/api', async function(req, res){
     res.setHeader('Access-Control-Allow-Credentials', true);
 
     const alldata = req.body;
-
     const json = JSON.stringify(alldata);
-
     const message = json.split(',').join('\n');
+    const name = alldata[0];
 
-
-    console.log(alldata);
-    res.send('Access Denied');
-
-    //  await email.sendEmail(name,email,message);
+    await email.sendEmail(name,message);
 
 })
 

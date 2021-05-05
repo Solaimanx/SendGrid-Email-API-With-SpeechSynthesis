@@ -7,7 +7,7 @@ const apitoken = process.env.API
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(apitoken);
 
-const sendEmail = async (name,email,message) => {
+const sendEmail = async (name,message) => {
 
 
 
