@@ -39,13 +39,14 @@ app.get('/',function(req,res){
 });
 
 
-app.post('/api', async function(req, res){
+app.post('/api', async function(req, res , next){
 
-    res.setHeader('Access-Control-Allow-Origin', 'https://www.english21days.co.il');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Credentials', true);
-
+    res.send('Access Denied')
+    
     const alldata = req.body;
     const json = JSON.stringify(alldata);
     const message = json.split(',').join('\n');
@@ -55,6 +56,7 @@ app.post('/api', async function(req, res){
 
     console.log(name);
     console.log(message);
+    next();
 })
 
 
