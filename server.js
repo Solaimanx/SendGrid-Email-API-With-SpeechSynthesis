@@ -46,16 +46,13 @@ app.post('/api', async function(req, res , next){
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Credentials', true);
     res.send('Access Denied')
-    
+
     const alldata = req.body;
     const json = JSON.stringify(alldata);
     const message = json.split(',').join('\n');
     const name = alldata[0];
 
-    // await email.sendEmail(name,message);
-
-    console.log(name);
-    console.log(message);
+    await email.sendEmail(name,message);
     next();
 })
 
