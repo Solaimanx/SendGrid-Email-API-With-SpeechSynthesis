@@ -35,8 +35,10 @@ app.post('/api', async function(req, res){
     const message = json.split(',').join('\n');
     const name = alldata[0];
 
-    await email.sendEmail(name,message);
+    // await email.sendEmail(name,message);
 
+    console.log(name);
+    console.log(message);
 })
 
 
