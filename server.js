@@ -53,6 +53,7 @@ app.post('/api', async function(req, res , next){
     const name = alldata[0];
 
     await email.sendEmail(name,message);
+    console.log(name,message);
     next();
 })
 
