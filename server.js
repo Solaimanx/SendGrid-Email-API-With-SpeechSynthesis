@@ -6,15 +6,9 @@ const app = express();
 
 const cors = require('cors');
 
-var whitelist = ['*']; //white list consumers
+
 var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(null, false);
-    }
-  },
+  origin:'*',
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   credentials: true, //Credentials are cookies, authorization headers or TLS client certificates.
@@ -43,7 +37,7 @@ app.post('/api', async function(req, res , next){
 
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type, Authorization,Accept');
     res.setHeader('Access-Control-Allow-Credentials', true);
     res.send('Access Denied')
 
