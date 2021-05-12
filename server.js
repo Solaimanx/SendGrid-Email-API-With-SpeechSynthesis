@@ -6,7 +6,7 @@ const app = express();
 
 const cors = require('cors');
 
-var whitelist = ['https://www.english21days.co.il', 'http://www.english21days.co.il']; //white list consumers
+var whitelist = ['*']; //white list consumers
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
