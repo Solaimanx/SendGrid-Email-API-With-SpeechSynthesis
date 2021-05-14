@@ -12,7 +12,7 @@ const sendEmail = async (name,message) => {
 
 
 const msg = {
-    to:"small.talk.confidence@gmail.com",
+    to:"solaiman321@gmail.com",
     from:"small.talk.confidence@gmail.com",
     subject:`${name} - Small Talk sentences`,
     text: message,
