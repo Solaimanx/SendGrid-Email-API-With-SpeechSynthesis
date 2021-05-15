@@ -7,6 +7,8 @@ const apitoken = process.env.API
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(apitoken);
 
+const NumberOfEmailSent = 0;
+
 const sendEmail = async (name,message) => {
 
 
@@ -23,7 +25,8 @@ await sgMail.send(msg, function (err, info) {
 if (err) {
     console.log(`Email Not Sent Error Occured => ${err}`);
 } else {
-    console.log("Email was Sent");
+    console.log(`Email was Sent${NumberOfEmailSent}`);
+    NumberOfEmailSent++;
 }
 });
 
