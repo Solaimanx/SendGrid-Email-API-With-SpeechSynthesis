@@ -37,7 +37,7 @@ app.get("/", function (req, res) {
   res.send("Access Denied");
 });
 
-cosnt
+
 
 app.post("/api", async function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
