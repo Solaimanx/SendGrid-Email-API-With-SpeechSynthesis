@@ -37,7 +37,7 @@ app.get("/", function (req, res) {
   res.send("Access Denied");
 });
 
-
+cosnt
 
 app.post("/api", async function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -58,6 +58,7 @@ app.post("/api", async function (req, res, next) {
   const message = json.split("ok").join(" \n").split(",").join("\n");
 
   await email.sendEmail(name, message);
+  
   next();
 });
 
