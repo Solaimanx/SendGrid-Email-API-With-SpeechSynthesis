@@ -1,0 +1,548 @@
+<style>
+  #feedback {
+    display: none !important;
+  }
+  #Progress_Status {
+    width: 50%;
+    background-color: #ddd;
+  }
+  #myprogressBar {
+    width: 2%;
+    height: 20px;
+    background-color: #2bff00;
+  }
+  table {
+    border-collapse: separate;
+    border: solid black 0px;
+    border-radius: 30px;
+    -moz-border-radius: 30px;
+  }
+  td,
+  th {
+    border-left: solid black 0px;
+    border-top: solid black 0px;
+  }
+  th {
+    border-top: none;
+  }
+  td:first-child,
+  th:first-child {
+    border-left: none;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 18px;
+    margin-bottom: -16px;
+  }
+  form > input {
+    margin-top: 1px;
+    width: 65%;
+    margin-bottom: 15px;
+    font-size: 18px;
+    height: 40px;
+  }
+  #formSubmit {
+    height: 100px;
+    width: 100px;
+  }
+  #Qid {
+    margin-top: 10px;
+    margin-bottom: 33px;
+  }
+  #Qid2 {
+    margin-top: 10px;
+  }
+</style>
+<script type="text/javascript">
+  var x = 0;
+  var activeItem = true;
+  var width = 1;
+  var actualQuestions = [];
+  function update() {
+    var element = document.getElementById("myprogressBar");
+    if (width < 100) {
+      width = width + progressNum;
+      element.style.width = width + "%";
+    }
+    //}
+  }
+  function Speak(message) {
+    var msg = new SpeechSynthesisUtterance(message);
+    var voices = window.speechSynthesis.getVoices();
+    msg.voice = voices[3];
+    window.speechSynthesis.speak(msg);
+  }
+  var firstTimeMessage = " ";
+  Speak(firstTimeMessage);
+  var value = 0,
+    tb = document.getElementById("tb"),
+    progress = document.getElementById("progress");
+</script>
+<div style="text-align: center">
+  <table
+    style="height: 200px; width: 100%; background-color: #0a042f"
+    border="0"
+    cellpadding="10"
+  >
+    <tbody>
+      <tr>
+        <td style="padding: 10px">
+          <a href="javascript:void(0);"
+            ><img
+              src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D"
+              height="42"
+              width="42"
+              id="speaker"
+              border="0"
+              onclick="Speak(document.getElementById('Qid').innerHTML)"
+          /></a>
+        </td>
+        <td>
+          <a href="javascript:void(0);"
+            ><img
+              src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D"
+              onclick="Next()"
+              height="29"
+              width="75"
+              align="center"
+              id="nextID"
+          /></a>
+        </td>
+        <td style="padding: 10px">
+          <a
+            href="javascript:void(0);"
+            id="start_button"
+            onclick="startDictation(event)"
+          >
+            <img
+              src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D"
+              height="50"
+              id="micID"
+              border="0"
+            />
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td style="padding: 10px">
+          <span style="font-size: 18pt; color: #ffffff">
+            <div class="English-language" id="Qid"></div>
+            <div class="Hebrew-language" id="Qid2"></div>
+          </span>
+        </td>
+        <td></td>
+        <td></td>
+        <script type="text/javascript">
+          var questions = [
+            " ",
+            "Hi Guy, I'm Richard",
+            " ",
+            "Yes, I just started working here last week. ",
+            " ",
+            "I work in the sales department, and you?",
+            " ",
+            "I come by car to work.  And you?",
+            " ",
+            "It usually takes me 45 minutes to get to work, because of heavy traffic. And you?",
+            " ",
+            "Wow that's great!",
+          ];
+          var progressNum = 100 / questions.length;
+          console.log(progressNum);
+          var Hquestions = [
+            "היי שמי גיא. מה שמך?",
+            "(לחצו על הרמקול לשמיעת המשפט)",
+            "היי ריצ'רד, אתה חדש בחברה?",
+            "(לחצו על הרמקול לשמיעת המשפט)",
+            "נהדר! איפה אתה עובד?",
+            "(לחצו על הרמקול לשמיעת המשפט)",
+            "אני עובד במחלקת השיווק. איך אתה מגיע לעבודה?",
+            "(לחצו על הרמקול לשמיעת המשפט)",
+            "אני בא ברכבת. כמה זמן לוקח לך לעבוד?",
+            "(לחצו על הרמקול לשמיעת המשפט)",
+            "לא הרבה זמן בסביבות 25 דקות.",
+            "(לחצו על הרמקול לשמיעת המשפט)",
+          ];
+          var i = 0;
+          var score = 0;
+          var scored = false;
+          var lowerCase = document.getElementById("Qid").innerHTML;
+        </script>
+        <span style="font-size: 18pt; color: #ffffff">
+          <script type="text/javascript">
+            document.getElementById("Qid").innerHTML =
+              "<h2>מטרת התרגיל היא<br>לבדוק את רמת הסמול-טוק שלך<br><img src='https://images.clickfunnels.com/57/ad96c76b0b4c51b4264752d0502af6/Improve.png' height='50' id='improveID' border='0'> <form id='customForm'}' > <input id='formName' type='text' name='name' placeholder='שם' ><input id='formEmail' type='email' name='email' placeholder='אימייל' > </form> <br>";
+          </script>
+        </span>
+      </tr>
+      <tr style="height: 47px">
+        <td style="padding: 10px"></td>
+        <td style="padding: 10px">
+          <span style="font-size: 22pt; color: #ffffff">
+            <div id="scoreTextID"></div>
+            <div id="gradeTextID"></div>
+          </span>
+          <div><span style="font-size: 18pt; color: #ffffff"> </span></div>
+          <a href="#"
+            ><img
+              src="https://images.clickfunnels.com/65/f53de50dde4c7387f12f1e3f076912/start.png"
+              width="100"
+              onclick="newStartbutton()"
+              align="center"
+              id="startID"
+              border="0"
+          /></a>
+        </td>
+      </tr>
+      <tr align="center">
+        <td style="padding: 10px"></td>
+        <td style="padding: 10px">
+          <div>
+            <span style="font-size: 18pt; color: #ffffff">
+              <div id="results">
+                <span id="final_span" class="final"></span>
+                <span id="interim_span" class="interim"></span>
+              </div>
+              <script type="text/javascript">
+                var final_transcript = "";
+                var recognizing = false;
+                if ("webkitSpeechRecognition" in window) {
+                  var recognition = new webkitSpeechRecognition();
+                  recognition.continuous = false;
+                  recognition.interimResults = true;
+                  recognition.onstart = function () {
+                    recognizing = true;
+                  };
+                  recognition.onerror = function (event) {
+                    console.log(event.error);
+                  };
+                  recognition.onend = function () {
+                    document.getElementById("micID").src =
+                      "https://images.clickfunnels.com/9c/c07ab9d740405e92bf2033ed4f04ab/Mic.png";
+                    recognizing = false;
+                    lowerCase = lowerCase.toLowerCase();
+                    if (
+                      final_transcript
+                        .replace(/[^a-zA-Z ]/g, "")
+                        .toLowerCase() ==
+                      document
+                        .getElementById("Qid")
+                        .innerHTML.replace(/[^a-zA-Z ]/g, "")
+                        .toLowerCase()
+                    ) {
+                      document.getElementById("feedback").src =
+                        "https://images.clickfunnels.com/89/33e20047f2411eae19d46f9265da64/v_1.png";
+                      if (scored == false) {
+                        score = score + 4;
+                        scored = true;
+                      }
+                      lowerCase = "";
+                      return;
+                    } else if (
+                      final_transcript
+                        .replace(/[^a-zA-Z ]/g, "")
+                        .toLowerCase() ==
+                      lowerCase.replace(/[^a-zA-Z ]/g, "").toLowerCase()
+                    ) {
+                      document.getElementById("feedback").src =
+                        "https://images.clickfunnels.com/89/33e20047f2411eae19d46f9265da64/v_1.png";
+                      if (scored == false) {
+                        score = score + 4;
+                        scored = true;
+                      }
+                      lowerCase = "";
+                      return;
+                    } else {
+                      document.getElementById("feedback").src =
+                        "https://images.clickfunnels.com/2e/2e5600ebeb11e7a8cee335eeba4755/1024px-Red_x.svg.png";
+                      return;
+                    }
+                  };
+                  recognition.onresult = function (event) {
+                    var interim_transcript = "";
+                    for (
+                      var i = event.resultIndex;
+                      i < event.results.length;
+                      ++i
+                    ) {
+                      if (event.results[i].isFinal) {
+                        final_transcript += event.results[i][0].transcript;
+                      } else {
+                        interim_transcript += event.results[i][0].transcript;
+                      }
+                    }
+                    document.getElementById("micID").src =
+                      "https://images.clickfunnels.com/9c/c07ab9d740405e92bf2033ed4f04ab/Mic.png";
+                    final_transcript = capitalize(final_transcript);
+                    lowerCase = lowerCase.toLowerCase();
+                    final_span.innerHTML = linebreak(final_transcript);
+                    interim_span.innerHTML = linebreak(interim_transcript);
+                    if (
+                      final_transcript
+                        .replace(/[^a-zA-Z ]/g, "")
+                        .toLowerCase() ==
+                      document
+                        .getElementById("Qid")
+                        .innerHTML.replace(/[^a-zA-Z ]/g, "")
+                        .toLowerCase()
+                    ) {
+                      console.log("first");
+                      document.getElementById("feedback").src =
+                        "https://images.clickfunnels.com/89/33e20047f2411eae19d46f9265da64/v_1.png";
+                      lowerCase = "";
+                    } else if (
+                      final_transcript.toLowerCase() == lowerCase.toLowerCase()
+                    ) {
+                      console.log("second last");
+                      document.getElementById("feedback").src =
+                        "https://images.clickfunnels.com/89/33e20047f2411eae19d46f9265da64/v_1.png";
+                      lowerCase = "";
+                    } else {
+                      document.getElementById("feedback").src =
+                        "https://images.clickfunnels.com/2e/2e5600ebeb11e7a8cee335eeba4755/1024px-Red_x.svg.png";
+                      return;
+                    }
+                  };
+                }
+                var two_line = /\n\n/g;
+                var one_line = /\n/g;
+                function linebreak(s) {
+                  return s
+                    .replace(two_line, "<p></p>")
+                    .replace(one_line, "<br>");
+                }
+                function capitalize(s) {
+                  return s.replace(s.substr(0, 1), function (m) {
+                    return m.toUpperCase();
+                  });
+                }
+                function startDictation(event) {
+                  document.getElementById("micID").src =
+                    "https://images.clickfunnels.com/d5/c4511410534a4cba0568a5cf413132/Mic_s.gif";
+                  if (recognizing) {
+                    recognition.stop();
+                    return;
+                  }
+                  final_transcript = "";
+                  recognition.lang = "en-US";
+                  recognition.start();
+                  final_span.innerHTML = "";
+                  interim_span.innerHTML = "";
+                }
+                function Next() {
+                  collectData();
+                  checkActive();
+                  activeItem = !activeItem;
+                  update();
+                  scored = false;
+                  i++;
+                  const questionItem = questions.length - 1;
+                  if (i <= questionItem) {
+                    document.getElementById("Qid").innerHTML = questions[i];
+                    document.getElementById("Qid2").innerHTML = Hquestions[i];
+                    final_span.innerHTML = "";
+                    document.getElementById("feedback").src =
+                      "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D";
+                  } else {
+                    console.log("finish");
+                    addOk();
+                    newSendemail();
+                    i--;
+                    document.getElementById("final_span").innerHTML = "";
+                    document.getElementById("Qid").innerHTML = "";
+                    document.getElementById("Qid2").innerHTML = "";
+                    final_span.innerHTML = "";
+                    document.getElementById("nextID").src =
+                      "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D";
+                    document.getElementById("micID").src =
+                      "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D";
+                    document.getElementById("speaker").src =
+                      "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D";
+                    document.getElementById("feedback").src =
+                      "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D";
+                    scoreText = "תודה!";
+                    document.getElementById("scoreTextID").innerHTML =
+                      scoreText;
+                    document.getElementById("gradeTextID").innerHTML =
+                      "התשובות נשלחות למנטור שלך";
+                    document.getElementById("restartID").src =
+                      "https://images.clickfunnels.com/7b/17c3a00b334e668900c61f32303fff/restart.png";
+                    document.getElementById("Progress_Status").style.display =
+                      "none";
+                    document.getElementById("results").innerHTML = "";
+                  }
+                }
+                function Init() {
+                  score = 0;
+                  document.getElementById("Progress_Status").style.display =
+                    "block";
+                  document.getElementById("startID").src =
+                    "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D";
+                  document.getElementById("startID").style.width = "1px";
+                  document.getElementById("startID").style.width = "1px";
+                  document.getElementById("restartID").src =
+                    "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D";
+                  document.getElementById("myprogressBar").style.width = "1px";
+                  width = 1;
+                  scored = false;
+                  i = 0;
+                  document.getElementById("Qid").innerHTML = questions[i];
+                  document.getElementById("Qid2").innerHTML = Hquestions[i];
+                  final_span.innerHTML = "";
+                  document.getElementById("nextID").src =
+                    "https://images.clickfunnels.com/f4/b746c111de49128470c44a4c653bd3/Next_s.png";
+                  document.getElementById("micID").src =
+                    "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D";
+                  document.getElementById("speaker").src =
+                    "https://images.clickfunnels.com/29/bb26ee335442328f3a9de427b51bd1/speaker-white.png";
+                  document.getElementById("micID").src =
+                    "https://images.clickfunnels.com/9c/c07ab9d740405e92bf2033ed4f04ab/Mic.png";
+                  document.getElementById("speaker").src =
+                    "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D";
+                  document.getElementById("final_span").innerHTML =
+                    "(הקליטו את המשפט באנגלית)";
+                }
+              </script>
+            </span>
+          </div>
+        </td>
+        <td style="padding: 10px"></td>
+      </tr>
+      <tr>
+        <td style="padding: 10px"></td>
+        <td style="padding: 10px">
+          <img
+            src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D"
+            height="42"
+            width="42"
+            id="feedback"
+            border="0"
+          />
+        </td>
+      </tr>
+      <tr align="center">
+        <td style="padding: 10px"></td>
+        <td
+          style="paddin
+                 g:10px"
+        >
+          <a href="#">
+            <br /><br />
+            <div id="Progress_Status" align="left" hidden>
+              <div id="myprogressBar"></div>
+            </div>
+            <img
+              src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D"
+              onclick="newReset()"
+              align="center"
+              id="restartID"
+          /></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<script type="text/javascript">
+  var allData = [];
+  function collectData() {
+    if (activeItem) {
+      const newHebewx = document.getElementById("Qid2").innerText;
+      const newQuesiton = actualQuestions[x];
+      const newResult = document.querySelector("#results").innerText;
+      console.log(newResult);
+      allData.push(newHebewx);
+      allData.push(newQuesiton);
+      allData.push(newResult);
+      console.log(allData);
+      x++;
+    } else {
+      /// Do nothing
+    }
+  }
+  ///run this function after clicking on the start button
+  function newStartbutton() {
+    var formEmail = document.querySelector("#formEmail").value;
+    var formName = document.querySelector("#formName").value;
+    var lastField = "ok";
+    if (formName.length == 0) {
+      alert("Please Fill the Name field !");
+    } else if (formEmail.length == 0) {
+      alert("Please Fill the Email field !");
+    } else {
+      allData.push(formName);
+      allData.push(formEmail);
+      allData.push(lastField);
+      Init();
+    }
+  }
+  function newSendemail() {
+    options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify(allData),
+    };
+    fetch("https://clickfunnel-email-api.herokuapp.com/api", options)
+      .then(function (response) {
+        console.log(response);
+        var status = response.status;
+        console.log(status);
+        if (status == 200) {
+          document.querySelector("#results").innerHTML = "נשלח בהצלחה";
+        } else {
+          document.querySelector("#results").innerHTML = "לא יכול לשלוח !!";
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    // ///empty the Array for "Try-Again"
+    //   var allData = [];
+  }
+  function newReset() {
+    window.location.reload();
+  }
+  function checkActive() {
+    if (activeItem) {
+      //hide reecord mic
+      document.getElementById("micID").src =
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D";
+      //show specker
+      document.getElementById("speaker").src =
+        "https://images.clickfunnels.com/29/bb26ee335442328f3a9de427b51bd1/speaker-white.png";
+    } else {
+      // say it in English by clicking on the mic image
+      //show mic
+      document.getElementById("micID").src =
+        "https://images.clickfunnels.com/9c/c07ab9d740405e92bf2033ed4f04ab/Mic.png";
+      //hide speacker
+      document.getElementById("speaker").src =
+        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D";
+    }
+  }
+  questions.forEach((item) => {
+    if (item.length > 5) {
+      actualQuestions.push(item);
+    }
+  });
+  document.querySelector("#nextID").addEventListener("click", function () {
+    if (activeItem) {
+      document.getElementById("final_span").innerHTML =
+        "(הקליטו את המשפט באנגלית)";
+    } else {
+      //do nothing
+    }
+  });
+  function addOk() {
+    for (i = 0; i < allData.length; i++) {
+      i = i + 3;
+      allData.splice(i, 0, "ok");
+    }
+  }
+</script>
