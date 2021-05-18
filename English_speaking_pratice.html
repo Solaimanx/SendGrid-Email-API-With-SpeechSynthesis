@@ -487,7 +487,8 @@
       },
       body: JSON.stringify(allData),
     };
-    fetch("https://clickfunnel-email-api.herokuapp.com/api", options)
+    url = "https://apiendpoint"
+    fetch(url, options)
       .then(function (response) {
         console.log(response);
         var status = response.status;
