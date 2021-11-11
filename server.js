@@ -172,7 +172,7 @@ app.get('/api/forgot-password/:rawemail',(req,res,next) => {
 console.log('complete')
 
 
-return res.sendStatus(200).json({message : 'success'})
+next()
 
 })
 
