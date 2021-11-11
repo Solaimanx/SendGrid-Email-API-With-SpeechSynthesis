@@ -45,7 +45,7 @@ app.get("/", function (req, res) {
 
 
 
-app.get('/api/forgot-password/:rawemail',(req,res,next) => {
+app.get('/api/forgot-password/:rawemail',(req,res) => {
 
   const { rawemail } = req.params
 
@@ -55,8 +55,6 @@ app.get('/api/forgot-password/:rawemail',(req,res,next) => {
 
   schedule.scheduleJob(waiting, async function () {
     const email = rawemail;
-
-
     const msg = {
       to: email,
       from: " אריאל אפל (קונפידנס לימוד אנגלית) <info@english21days.co.il>",
@@ -171,8 +169,8 @@ app.get('/api/forgot-password/:rawemail',(req,res,next) => {
 
 console.log('complete')
 
+res.send('success')
 
-next()
 
 })
 
