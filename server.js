@@ -43,7 +43,7 @@ app.get("/", function (req, res) {
 
 
 
-app.get('/api/forgot-password/:rawemail',(req,res) => {
+app.get('/api/forgot-password/:rawemail',(req,res,next) => {
 
   const { rawemail } = req.params
 
@@ -56,7 +56,14 @@ app.get('/api/forgot-password/:rawemail',(req,res) => {
     console.log(email)
   })
 
+  const job = schedule.scheduleJob('1 * * * *', function(){
+    console.log('The answer to life, the universe, and everything!');
+  });
 
+console.log('complete')
+
+
+  next()
 })
 
 
