@@ -4,6 +4,10 @@ if (process.env.NODE_ENV !== "production") {
 const express = require("express");
 const app = express();
 
+const schedule = require("node-schedule");
+
+
+
 const cors = require("cors");
 
 var corsOptions = {
@@ -37,6 +41,23 @@ app.get("/", function (req, res) {
   res.send("Access Denied");
 });
 
+
+
+app.get('/api/forgot-password/:rawemail',(req,res) => {
+
+  const { rawemail } = req.params
+
+  const currectTime = new Date().getTime() + 1 * 60 * 1000;
+  const waiting = new Date(currectTime);
+
+
+  schedule.scheduleJob(waiting, async function () {
+    const email = rawemail;
+    console.log(email)
+  })
+
+
+})
 
 
 app.post("/api", async function (req, res, next) {
