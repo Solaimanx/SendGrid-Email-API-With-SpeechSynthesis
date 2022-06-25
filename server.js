@@ -100,7 +100,7 @@ app.get('/api/forgot-password/:rawemail',(req,res) => {
                                             <table style="float:none;text-align:right;border-spacing:0px;border-collapse:collapse;border-width:medium;border-style:none" role="presentation" width="100%" align="right">
                                               <tbody>
                                                 <tr>
-                                                  <td style="padding:0px 0px 0px 0px" align="right"> <img src="https://images.clickfunnels.com/b3/76412fd32440a6b709eb54a031921d/assaf-s.png" style="display:block;width:136px;height:150px;max-width:100%" alt="" width="136" height="150" class="CToWUd"> </td>
+                                                  <td style="padding:0px 0px 0px 0px" align="right"> <img src="https://images.clickfunnels.com/65/26fe99798a480486a41c6f71a13f95/LOGO-w-shadow-w-Black-Slogan-ss.png" style="display:block;width:136px;height:150px;max-width:100%;object-fit:contain" alt="" width="136" height="150" class="CToWUd"> </td>
                                                 </tr>
                                               </tbody>
                                             </table>
