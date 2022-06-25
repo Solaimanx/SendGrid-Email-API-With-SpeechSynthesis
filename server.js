@@ -40,7 +40,7 @@ app.use(bodyParser.json());
 const email = require("./email");
 
 app.get("/", function (req, res) {
-  res.send("Access Denied");
+  res.send("Access Denied (update)");
 });
 
 
@@ -57,7 +57,7 @@ app.get('/api/forgot-password/:rawemail',(req,res) => {
     const email = rawemail;
     const msg = {
       to: email,
-      from: " אריאל אפל (קונפידנס לימוד אנגלית) <info@english21days.co.il>",
+      from: " אסף (פלואו לימוד אנגלית) <info@english21days.co.il>",
       subject: `פרטי הגישה שלך `,
 
       html: `
@@ -91,7 +91,7 @@ app.get('/api/forgot-password/:rawemail',(req,res) => {
                                               <div><br>
                                                 מאחל לך לימוד נעים
                                                 ומהנה,<br>
-                                                אריאל</div>
+                                                אסף</div>
                                               <div>&nbsp;</div>
                                             </div>
                                           </div>
@@ -100,7 +100,7 @@ app.get('/api/forgot-password/:rawemail',(req,res) => {
                                             <table style="float:none;text-align:right;border-spacing:0px;border-collapse:collapse;border-width:medium;border-style:none" role="presentation" width="100%" align="right">
                                               <tbody>
                                                 <tr>
-                                                  <td style="padding:0px 0px 0px 0px" align="right"> <img src="https://ci6.googleusercontent.com/proxy/NFq5F8FXTyJM6yeepc3Yca4Wo9kAasjJH5cknq06Iay5PluCdAi795i2M8R2oazXeMZqekoKLOcOkORHaj7eedPPJUVIvc4AolyJdgerYxFbZkcZwd6sCUmMn_MQ_n_r8mWa52APVI_YWSoXCWDyArOoQijTwf59yQ=s0-d-e1-ft#https://hostedimages-cdn.aweber-static.com/MTAyNTkyMA==/thumbnail/697ac1bb04e54e1f87d58b5e3a11c7b4.png" style="display:block;width:136px;height:150px;max-width:100%" alt="" width="136" height="150" class="CToWUd"> </td>
+                                                  <td style="padding:0px 0px 0px 0px" align="right"> <img src="https://images.clickfunnels.com/b3/76412fd32440a6b709eb54a031921d/assaf-s.png" style="display:block;width:136px;height:150px;max-width:100%" alt="" width="136" height="150" class="CToWUd"> </td>
                                                 </tr>
                                               </tbody>
                                             </table>
